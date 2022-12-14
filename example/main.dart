@@ -1,7 +1,6 @@
-import 'package:package_name/package_name.dart';
-
-// A pratical example of how to use the package...    
+import 'package:regex_range/regex_range.dart';
 
 void main() {
-    // Example code...
+  print(range(-10, 10, exact: true).hasMatch('5'));
+  print(range(-10, 10, exact: true).hasMatch('-5'));
 }

@@ -1,4 +1,4 @@
-# Package Name
+# Regex Range
 
 Package description...
 
@@ -10,13 +10,13 @@ Package description...
 ## Getting Started 
 
 ```
-dart pub add package_name
+dart pub add regex_range
 ```
 
 And import the package:
 
 ```dart
-import 'package:package_name/package_name.dart';
+import 'package:regex_range/regex_range.dart';
 ```
 
 ## Usage
@@ -31,10 +31,10 @@ Explanation of how to use the package...
 ## Example
 
 <details>
-  <summary><code>example/main.dart</code></summary>
+  <summary><code>/example/main.dart</code></summary>
     
   ```dart
-  import 'package:package_name/package_name.dart';
+  import 'package:regex_range/regex_range.dart';
 
   // A pratical example of how to use the package...
   ```
