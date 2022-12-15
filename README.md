@@ -7,7 +7,7 @@ Package description...
 - A list of features provided by the package
 - More...
 
-## Getting Started 
+## Getting Started
 
 ```
 dart pub add regex_range

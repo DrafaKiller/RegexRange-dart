@@ -22,7 +22,7 @@ class RegexRangeNumber {
   int get digitDifference => max.digit - min.digit;
   bool get overflowed => max.others - min.others > 1;
 
-  String get tailingPattern => '[0-9]' * level;
+  String get tailingPattern => tail(level);
 
   @override
   String toString() => '(?:${
@@ -71,5 +71,11 @@ class RegexRangeNumber {
     if (min > max) throw InvalidRangeInputError(min, max);
     if (min == max) return min.toString();
     return '[$min-$max]';
+  }
+
+  static String tail(int level) {
+    if (level < 1) return '';
+    if (level == 1) return '[0-9]';
+    return '[0-9]{$level}';
   }
 }

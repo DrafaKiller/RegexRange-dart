@@ -27,6 +27,10 @@ import 'package:test/test.dart';
 
   From 25 to 69:
     > 2[5-9]|[4-5][0-9]|6[0-9]
+
+  -= Optimized Results =-
+
+  The digit pattern "[0-9]" can be replaced with "[0-9]{3}" for a shorter regex pattern.
 */
 
 void rangeTest(int min, int max) {
