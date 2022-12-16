@@ -1,3 +1,6 @@
+[![Pub.dev package](https://img.shields.io/badge/pub.dev-regex__range-blue)](https://pub.dev/packages/regex_range)
+[![GitHub repository](https://img.shields.io/badge/GitHub-RegexRange--dart-blue?logo=github)](https://github.com/DrafaKiller/RegexRange-dart)
+
 # Regex Range
 
 Generates a Regular Expression that matches a range of numbers or characters.
