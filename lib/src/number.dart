@@ -26,11 +26,13 @@ class RegexRangeNumber {
 
   @override
   String toString() => '(?:${
-    simplifyNegatives({
-      if (negativeRange != null) ...simplifyTails(negativeRange!.rules).toList().reversed.map((element) => '-$element'),
-      if (negativeRange != null && negativeRange!.min == 0 && min == 0 && max == 0) '0',
-      if (!(negativeRange != null && min == 0 && max == 0)) ...simplifyTails(rules).toList().reversed,
-    }).join('|')
+    _sortByConsumption(
+      _simplifyNegatives({
+        if (negativeRange != null) ..._simplifyTails(negativeRange!.rules).toList().reversed.map((element) => '-$element'),
+        if (negativeRange != null && negativeRange!.min == 0 && min == 0 && max == 0) '0',
+        if (!(negativeRange != null && min == 0 && max == 0)) ..._simplifyTails(rules),
+      })
+    ).join('|')
   })';
 
   RegExp get regex => RegExp(toString());
@@ -79,7 +81,7 @@ class RegexRangeNumber {
     return '[0-9]{$level}';
   }
 
-  static Set<String> simplifyTails(Set<String> rules) {
+  static Set<String> _simplifyTails(Set<String> rules) {
     final tailPattern = RegExp(r'^(.*)\[0-9](?:{(\d+)})?$');
     
     for (final rule in rules.toList()) {
@@ -129,7 +131,7 @@ class RegexRangeNumber {
     return rules;
   }
 
-  static Set<String> simplifyNegatives(Set<String> rules) {
+  static Set<String> _simplifyNegatives(Set<String> rules) {
     final negativePattern = RegExp(r'^-(.*)$');
 
     for (final rule in rules.toList()) {
@@ -147,5 +149,20 @@ class RegexRangeNumber {
     }
 
     return rules;
+  }
+
+  static int _getConsumption(String string) {
+    final consummationPattern = RegExp(r'\[\d-\d](?:{(?<quantity>\d+)(?:,\d+)?})?|\d');
+
+    int consummation = 0;
+    for (final match in consummationPattern.allMatches(string)) {
+      consummation += int.parse(match.namedGroup('quantity') ?? '1');
+    }
+
+    return consummation;
+  }
+  
+  static Set<String> _sortByConsumption(Set<String> rules) {
+    return (rules.toList()..sort((a, b) => _getConsumption(b).compareTo(_getConsumption(a)))).toSet();
   }
 }

@@ -1,8 +1,10 @@
-## 0.0.1+2
+## 0.1.0
 
-Added:
-- Shield badges to README.md
-- Parameter `exact` to the documentation
+Changed:
+- Made `simplifyTails` and `simplifyNegatives` private
+
+Fixed:
+- Pattern order optimization, so it consumes the longest match first
 
 ## 0.0.1
 

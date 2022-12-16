@@ -7,10 +7,10 @@ Generates a Regular Expression that matches a range of numbers or characters.
 
 ## Features
 
-- Number ranges: `1 -> 100`
-- Negative to positive number ranges: `-100 -> 100`
-- Character ranges: `A -> Z`
-- Case insensitive character ranges: `a -> Z`
+- Number ranges
+- Negative to positive number ranges
+- Character ranges
+- Case insensitive character ranges
 
 ## Getting Started
 
@@ -37,9 +37,9 @@ Alternatively, you may use the `numberRange` and `charRange` functions to genera
 You can get the generated expression pattern by using the `pattern` property of the `RegExp` object.
 
 ```dart
-final regex = range(0, 5);
+final regex = range(0, 255);
 
-print(regex.pattern); // [0-5]
+print(regex.pattern); // 25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9][0-9]|[0-9]
 ```
 
 You may also use the `exact` parameter to generate an exact match, this will add `^` and `$` to the expression to ensure it matches as a whole.
