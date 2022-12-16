@@ -26,11 +26,11 @@ class RegexRangeNumber {
 
   @override
   String toString() => '(?:${
-    {
-      if (negativeRange != null) ...negativeRange!.rules.toList().reversed.map((element) => '-$element'),
+    simplifyNegatives({
+      if (negativeRange != null) ...simplifyTails(negativeRange!.rules).toList().reversed.map((element) => '-$element'),
       if (negativeRange != null && negativeRange!.min == 0 && min == 0 && max == 0) '0',
-      if (!(negativeRange != null && min == 0 && max == 0)) ...rules.toList().reversed,
-    }.join('|')
+      if (!(negativeRange != null && min == 0 && max == 0)) ...simplifyTails(rules).toList().reversed,
+    }).join('|')
   })';
 
   RegExp get regex => RegExp(toString());
@@ -77,5 +77,75 @@ class RegexRangeNumber {
     if (level < 1) return '';
     if (level == 1) return '[0-9]';
     return '[0-9]{$level}';
+  }
+
+  static Set<String> simplifyTails(Set<String> rules) {
+    final tailPattern = RegExp(r'^(.*)\[0-9](?:{(\d+)})?$');
+    
+    for (final rule in rules.toList()) {
+      if (!rules.contains(rule)) continue;
+
+      final match = tailPattern.firstMatch(rule);
+      if (match == null) continue;
+
+      var tails = { int.parse(match.group(2) ?? '1') };
+
+      for (final otherRule in rules.toList()) {
+        final otherMatch = tailPattern.firstMatch(otherRule);
+        if (otherMatch == null) continue;
+        if (match.group(1) != otherMatch.group(1)) continue;
+        
+        tails.add(int.parse(otherMatch.group(2) ?? '1'));
+        rules.remove(otherRule);
+      }
+
+      final organizedTails = <List<int>>[];
+
+      for (final tail in tails.toList()..sort()) {
+        if (organizedTails.isEmpty) {
+          organizedTails.add([tail]);
+          continue;
+        }
+
+        final last = organizedTails.last;
+        if (last.last + 1 == tail) {
+          last.add(tail);
+          continue;
+        }
+
+        organizedTails.add([tail]);
+      }
+
+      rules.remove(rule);
+      rules.add('${ match.group(1) }[0-9]${
+        organizedTails.map((element) =>
+          element.length > 1
+            ? '{${ element.first },${ element.last }}'
+            : element.first == 1 ? '' : '{${ element.first }}'
+        ).join('')
+      }');
+    }
+
+    return rules;
+  }
+
+  static Set<String> simplifyNegatives(Set<String> rules) {
+    final negativePattern = RegExp(r'^-(.*)$');
+
+    for (final rule in rules.toList()) {
+      if (!rules.contains(rule)) continue;
+
+      final match = negativePattern.firstMatch(rule);
+      if (match == null) continue;
+
+      final negativeRule = match.group(1)!;
+      if (!rules.contains(negativeRule)) continue;
+
+      rules.remove(rule);
+      rules.remove(negativeRule);
+      rules.add('-?$negativeRule');
+    }
+
+    return rules;
   }
 }

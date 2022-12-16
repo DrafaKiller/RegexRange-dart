@@ -5,4 +5,4 @@ extension StringCase on String {
   bool get isUpperCase => hasCaseDifference && toUpperCase() == this;
 }
 
-bool isDifferentCase(String min, String max) => min.isLowerCase != max.isLowerCase;
+bool isDifferentCase(String a, String b) => a.isLowerCase != b.isLowerCase;

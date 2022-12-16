@@ -30,7 +30,7 @@ import 'package:test/test.dart';
 
   -= Optimized Results =-
 
-  The digit pattern "[0-9]" can be replaced with "[0-9]{3}" for a shorter regex pattern.
+  The digit pattern "[0-9][0-9][0-9]" can be replaced with "[0-9]{3}" for a shorter regex pattern.
 */
 
 void rangeTest(int min, int max) {
@@ -78,6 +78,11 @@ void main() {
     rangeTest(250, 20000);
     rangeTest(250, 10500);
     rangeTest(534, 38378);
+  });
+
+  test('level 6', () {
+    rangeTest(0, 200000);
+    rangeTest(125, 200000);
   });
 
   test('level -1', () {
