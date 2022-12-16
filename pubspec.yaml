@@ -1,6 +1,6 @@
 name: regex_range
 description: Generates a Regular Expression that matches a range of numbers or characters. Use the generated RegExp or pattern.
-version: 0.0.1+1
+version: 0.0.1+2
 repository: https://github.com/DrafaKiller/RegexRange-dart
 
 environment:
