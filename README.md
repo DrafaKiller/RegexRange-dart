@@ -7,10 +7,10 @@ Generates a Regular Expression that matches a range of numbers or characters.
 
 ## Features
 
-- Number ranges
-- Negative to positive number ranges
-- Character ranges
-- Case insensitive character ranges
+- Number ranges: `range(1, 100)`
+- Negative to positive number ranges: `range(-100, 100)`
+- Character ranges: `range('A', 'Z')`
+- Case insensitive character ranges: `range('a', 'Z')`
 
 ## Getting Started
 

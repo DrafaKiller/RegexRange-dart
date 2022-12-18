@@ -1,3 +1,8 @@
+## 0.1.0+1
+
+Change:
+- Documentation feature example improvement 
+
 ## 0.1.0
 
 Changed:
