@@ -2,6 +2,7 @@ name: regex_range
 description: Generates a Regular Expression that matches a range of numbers or characters. Use the generated RegExp or pattern.
 version: 0.1.0+1
 repository: https://github.com/DrafaKiller/RegexRange-dart
+issue_tracker: https://github.com/DrafaKiller/RegexRange-dart/issues
 
 environment:
   sdk: '>=2.17.6 <3.0.0'
